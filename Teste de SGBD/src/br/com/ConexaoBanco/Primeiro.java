@@ -36,6 +36,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenu;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
 
 public class Primeiro {
 
@@ -81,42 +86,34 @@ public class Primeiro {
 		frame.getContentPane().setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 31, 520, 35);
+		menuBar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		menuBar.setBounds(0, 40, 520, 35);
 		frame.getContentPane().add(menuBar);
 		
-		JMenuItem mntmCadastro = new JMenuItem("CADASTRO");
+		JMenu mnPrincipal = new JMenu("Arquivo");
+		menuBar.add(mnPrincipal);
 		
-			
-		menuBar.add(mntmCadastro);
+		JMenuItem mntmSalvar = new JMenuItem("Salvar");
+		mnPrincipal.add(mntmSalvar);
 		
+		JMenuItem mntmSair_1 = new JMenuItem("Sair");
+		mnPrincipal.add(mntmSair_1);
 		
+		JMenu mnEditar = new JMenu("Editar");
+		menuBar.add(mnEditar);
 		
-		JMenuItem mntmAtualizar = new JMenuItem("ATUALIZAR");
-		menuBar.add(mntmAtualizar);
+		JMenuItem mntmCadastrar = new JMenuItem("Cadastrar");
 		
-		JMenuItem mntmExcluir = new JMenuItem("EXCLUIR");
-		menuBar.add(mntmExcluir);
+		mnEditar.add(mntmCadastrar);
 		
-		JMenuItem mntmListar = new JMenuItem("LISTAR");
+		JMenuItem mntmAtualizar_1 = new JMenuItem("Atualizar");
+		mnEditar.add(mntmAtualizar_1);
 		
-		menuBar.add(mntmListar);
+		JMenuItem mntmExcluir_1 = new JMenuItem("Excluir");
+		mnEditar.add(mntmExcluir_1);
 		
-		JMenuItem mntmSair = new JMenuItem("SAIR");
-		menuBar.add(mntmSair);
-		mntmSair.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				System.exit(0);			
-				
-			}
-		});
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 520, 30);
-		frame.getContentPane().add(panel);
+		JMenuItem mntmListar_1 = new JMenuItem("Listar");
+		mnEditar.add(mntmListar_1);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(50, 128, 420, 290);
@@ -215,17 +212,44 @@ public class Primeiro {
 		botaoListaDados.setFont(new Font("Calibri", Font.PLAIN, 15));
 		botaoListaDados.setBounds(156, 252, 107, 27);
 		painelListar.add(botaoListaDados);
-		painelListar.setVisible(false);
 		
-		mntmListar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel_1.setVisible(false);
-				painelListar.setVisible(true);
-				
-			}
-		});
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 520, 40);
+		frame.getContentPane().add(panel);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoFecharok.png")));
+		button.setOpaque(false);
+		button.setBorder(null);
+		button.setBounds(485, 0, 35, 40);
+		panel.add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoMaximizar_35x40.jpg")));
+		button_1.setOpaque(false);
+		button_1.setBorder(null);
+		button_1.setBounds(450, 0, 35, 40);
+		panel.add(button_1);
+		
+		JButton button_2 = new JButton("");
+		button_2.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoMinimizarok.png")));
+		button_2.setOpaque(false);
+		button_2.setBorder(null);
+		button_2.setBounds(415, 0, 35, 40);
+		panel.add(button_2);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/iconeprincipal35x40.png")));
+		label.setBounds(0, 0, 35, 40);
+		panel.add(label);
+		
+		JLabel lblTelaInicial = new JLabel("Tela Inicial");
+		lblTelaInicial.setFont(new Font("Calibri", Font.PLAIN, 15));
+		lblTelaInicial.setBounds(45, 11, 201, 19);
+		panel.add(lblTelaInicial);
+		painelListar.setVisible(false);
 		
 		
 		botaoListaDados.addActionListener(new ActionListener() {
@@ -285,17 +309,6 @@ public class Primeiro {
 			}
 		});
 		
-			mntmCadastro.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				painelListar.setVisible(false);
-				panel_1.setVisible(true);
-				
-			}
-		});
-		
 			btnCadastrar.addActionListener(new ActionListener() {
 				
 				@Override
@@ -348,6 +361,13 @@ public class Primeiro {
 					campoNome.setText("");
 					campoNascimento.setText("");
 					comboBoxSexo.setSelectedItem("Selecione o Sexo");					
+				}
+			});
+			
+			mntmCadastrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					panel_1.setVisible(true);
+					
 				}
 			});
 	

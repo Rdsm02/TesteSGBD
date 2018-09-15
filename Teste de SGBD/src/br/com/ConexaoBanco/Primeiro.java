@@ -331,7 +331,7 @@ public class Primeiro {
 						smtp.setString(2, campoNascimento.getText());
 						smtp.setString(3, sexo);
 						smtp.execute();	
-						smtp.close();
+						smtp.close();//
 						connection.close();
 						int opcao = JOptionPane.showConfirmDialog(panel_1, "Funcionario Cadastrado com Sucesso!\n\nDeseja Cadastrar Outro usuário e limpar os campos escritos?\n");
 						System.out.println(opcao);

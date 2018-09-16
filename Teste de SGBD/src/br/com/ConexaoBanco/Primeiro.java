@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.TextArea;
 
@@ -37,16 +38,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class Primeiro {
 
-	private JFrame frame;
+	private JFrame frmTelaInicial;
 	private JTextField campoNome;
 	private JTextField campoNascimento;
 	private JTable table;
@@ -62,7 +65,7 @@ public class Primeiro {
 			public void run() {
 				try {
 					Primeiro window = new Primeiro();
-					window.frame.setVisible(true);
+					window.frmTelaInicial.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,17 +84,20 @@ public class Primeiro {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setUndecorated(true);
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 520, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmTelaInicial = new JFrame();
+		frmTelaInicial.setTitle("Tela Inicial");
+		frmTelaInicial.setIconImage(Toolkit.getDefaultToolkit().getImage(Primeiro.class.getResource("/resources/images/iconeprincipal35x40.png")));
+		frmTelaInicial.setUndecorated(true);
+		frmTelaInicial.setResizable(false);
+		frmTelaInicial.setBounds(100, 100, 520, 500);
+		frmTelaInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmTelaInicial.getContentPane().setLayout(null);		
+		
 		
 		JMenuBar menuPrincipalSuperior = new JMenuBar();
 		menuPrincipalSuperior.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		menuPrincipalSuperior.setBounds(0, 40, 520, 35);
-		frame.getContentPane().add(menuPrincipalSuperior);
+		frmTelaInicial.getContentPane().add(menuPrincipalSuperior);
 		
 		JMenu menuArquivo = new JMenu("Arquivo");
 		menuPrincipalSuperior.add(menuArquivo);
@@ -121,7 +127,7 @@ public class Primeiro {
 		
 		JPanel painelDeCadastro = new JPanel();
 		painelDeCadastro.setBounds(50, 128, 420, 290);
-		frame.getContentPane().add(painelDeCadastro);
+		frmTelaInicial.getContentPane().add(painelDeCadastro);
 		painelDeCadastro.setLayout(null);
 		
 		
@@ -180,7 +186,7 @@ public class Primeiro {
 		
 		JPanel painelDeListagem = new JPanel();
 		painelDeListagem.setBounds(50, 128, 420, 290);
-		frame.getContentPane().add(painelDeListagem);
+		frmTelaInicial.getContentPane().add(painelDeListagem);
 		painelDeListagem.setLayout(null);
 		
 		JLabel lblListagemDeDados = new JLabel("Listagem de Dados");
@@ -217,11 +223,21 @@ public class Primeiro {
 		botaoListaDados.setBounds(156, 252, 107, 27);
 		painelDeListagem.add(botaoListaDados);
 		
+		JLabel labelQtdListagem = new JLabel("Quantidade de Listados:");
+		labelQtdListagem.setFont(new Font("Calibri", Font.PLAIN, 15));
+		labelQtdListagem.setBounds(10, 219, 149, 19);
+		painelDeListagem.add(labelQtdListagem);
+		
+		JLabel labelNumeroQtd = new JLabel("");
+		labelNumeroQtd.setFont(new Font("Calibri", Font.BOLD, 15));
+		labelNumeroQtd.setBounds(162, 221, 21, 14);
+		painelDeListagem.add(labelNumeroQtd);
+		
 		JPanel painelDaBarraSuperior = new JPanel();
 		painelDaBarraSuperior.setLayout(null);
 		painelDaBarraSuperior.setBackground(Color.WHITE);
 		painelDaBarraSuperior.setBounds(0, 0, 520, 40);
-		frame.getContentPane().add(painelDaBarraSuperior);
+		frmTelaInicial.getContentPane().add(painelDaBarraSuperior);
 		
 		JButton botaoFechar = new JButton("");		
 		botaoFechar.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoFecharok.png")));
@@ -285,18 +301,20 @@ public class Primeiro {
 					DefaultTableModel dtm = (DefaultTableModel) table.getModel();
 //					System.out.println(dtm);
 //					table.setBounds(10, 50, 400, 164);
-					
+//					int cont = 0;
 					while(rs.next()){
 						
 						String [] dados = new String [qtdColunas];
 //						System.out.println(qtdColunas);
 						for(int i = 1; i <=qtdColunas; i++){
 							dados[i-1] = rs.getString(i);
+//							cont++;
+//							labelNumeroQtd.setText(rs.getMetaData());
 //							System.out.println(rs.getString(i));
 //							System.out.println(dados[i]);
 							
 						}
-						dtm.addRow(dados);
+						dtm.addRow(dados);						
 //						System.out.println(dados);
 //						System.out.println("\n");
 						
@@ -376,8 +394,8 @@ public class Primeiro {
 			
 			painelDaBarraSuperior.addMouseMotionListener(new MouseMotionAdapter() {
 			      public void mouseDragged(MouseEvent e) {
-			        Point p = frame.getLocation();
-			        frame.setLocation(p.x + e.getX() - point.x, p.y + e.getY() - point.y);
+			        Point p = frmTelaInicial.getLocation();
+			        frmTelaInicial.setLocation(p.x + e.getX() - point.x, p.y + e.getY() - point.y);
 			      }
 			    });
 		
@@ -389,14 +407,7 @@ public class Primeiro {
 					campoNascimento.setText("");
 					comboBoxSexo.setSelectedItem("Selecione o Sexo");					
 				}
-			});
-			
-			itemCadastrar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {					
-					painelDeListagem.setVisible(false);
-					painelDeCadastro.setVisible(true);
-				}
-			});
+			});			
 			
 			botaoFechar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -405,10 +416,23 @@ public class Primeiro {
 				}
 			});
 			
+			itemCadastrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {					
+					painelDeListagem.setVisible(false);
+					painelDeCadastro.setVisible(true);
+					labelTituloBarraSuperior.setText("Cadastro de Pessoal");
+					frmTelaInicial.setTitle("Cadastro de Pessoal");
+					
+				}
+			});
+			
 			itemListar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					painelDeCadastro.setVisible(false);
 					painelDeListagem.setVisible(true);
+					labelTituloBarraSuperior.setText("Listagem de Dados na Planilha");
+					frmTelaInicial.setTitle("Listagem de Dados na Planilha");
+					
 				}
 			});
 	

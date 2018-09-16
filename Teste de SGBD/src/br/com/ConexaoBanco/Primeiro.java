@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.TextArea;
 
 import javax.swing.JTextField;
@@ -31,6 +32,7 @@ import javax.swing.JColorChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,6 +52,7 @@ public class Primeiro {
 	private JTable table;
 	private JScrollPane scrollPane;
 	String sexo = "Selecione o Sexo";
+	public static Point point = new Point();
 
 	/**
 	 * Launch the application.
@@ -85,77 +88,78 @@ public class Primeiro {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		menuBar.setBounds(0, 40, 520, 35);
-		frame.getContentPane().add(menuBar);
+		JMenuBar menuPrincipalSuperior = new JMenuBar();
+		menuPrincipalSuperior.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		menuPrincipalSuperior.setBounds(0, 40, 520, 35);
+		frame.getContentPane().add(menuPrincipalSuperior);
 		
-		JMenu mnPrincipal = new JMenu("Arquivo");
-		menuBar.add(mnPrincipal);
+		JMenu menuArquivo = new JMenu("Arquivo");
+		menuPrincipalSuperior.add(menuArquivo);
 		
-		JMenuItem mntmSalvar = new JMenuItem("Salvar");
-		mnPrincipal.add(mntmSalvar);
+		JMenuItem itemSalvar = new JMenuItem("Salvar");
+		menuArquivo.add(itemSalvar);
 		
-		JMenuItem mntmSair_1 = new JMenuItem("Sair");
-		mnPrincipal.add(mntmSair_1);
+		JMenuItem itemSair = new JMenuItem("Sair");
+		menuArquivo.add(itemSair);
 		
-		JMenu mnEditar = new JMenu("Editar");
-		menuBar.add(mnEditar);
+		JMenu menuEditar = new JMenu("Editar");
+		menuPrincipalSuperior.add(menuEditar);
 		
-		JMenuItem mntmCadastrar = new JMenuItem("Cadastrar");
+		JMenuItem itemCadastrar = new JMenuItem("Cadastrar");
 		
-		mnEditar.add(mntmCadastrar);
+		menuEditar.add(itemCadastrar);
 		
-		JMenuItem mntmAtualizar_1 = new JMenuItem("Atualizar");
-		mnEditar.add(mntmAtualizar_1);
+		JMenuItem itemAtualizar = new JMenuItem("Atualizar");
+		menuEditar.add(itemAtualizar);
 		
-		JMenuItem mntmExcluir_1 = new JMenuItem("Excluir");
-		mnEditar.add(mntmExcluir_1);
+		JMenuItem itemExcluir = new JMenuItem("Excluir");
+		menuEditar.add(itemExcluir);
 		
-		JMenuItem mntmListar_1 = new JMenuItem("Listar");
-		mnEditar.add(mntmListar_1);
+		JMenuItem itemListar = new JMenuItem("Listar");
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(50, 128, 420, 290);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		menuEditar.add(itemListar);
+		
+		JPanel painelDeCadastro = new JPanel();
+		painelDeCadastro.setBounds(50, 128, 420, 290);
+		frame.getContentPane().add(painelDeCadastro);
+		painelDeCadastro.setLayout(null);
 		
 		
 		JLabel lblCadastro = new JLabel("Cadastro");
 		lblCadastro.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 20));
 		lblCadastro.setBounds(168, 11, 76, 26);
-		panel_1.add(lblCadastro);
+		painelDeCadastro.add(lblCadastro);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Calibri", Font.PLAIN, 15));
 		lblNome.setBounds(10, 73, 42, 19);
-		panel_1.add(lblNome);
+		painelDeCadastro.add(lblNome);
 		
 		JLabel lblNascimento = new JLabel("Nascimento:");
 		lblNascimento.setFont(new Font("Calibri", Font.PLAIN, 15));
 		lblNascimento.setBounds(240, 73, 78, 19);
-		panel_1.add(lblNascimento);
+		painelDeCadastro.add(lblNascimento);
 		
 		campoNome = new JTextField();
 		campoNome.setBounds(54, 72, 176, 20);
-		panel_1.add(campoNome);
+		painelDeCadastro.add(campoNome);
 		campoNome.setColumns(10);
 		
 		campoNascimento = new JTextField();
 		campoNascimento.setColumns(10);
 		campoNascimento.setBounds(316, 72, 94, 20);
-		panel_1.add(campoNascimento);
+		painelDeCadastro.add(campoNascimento);
 		
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Calibri", Font.PLAIN, 15));
 		lblSexo.setBounds(10, 121, 34, 19);
-		panel_1.add(lblSexo);
+		painelDeCadastro.add(lblSexo);
 		
 		JComboBox comboBoxSexo = new JComboBox();
 		comboBoxSexo.setModel(new DefaultComboBoxModel<>(new String[] {"Selecione o Sexo", "Masculino", "Feminino"}));
 		comboBoxSexo.setToolTipText("");
 		comboBoxSexo.setBounds(47, 120, 131, 20);
-		panel_1.add(comboBoxSexo);
+		painelDeCadastro.add(comboBoxSexo);
 		comboBoxSexo.addActionListener(new ActionListener() {
 			
 			@Override
@@ -167,26 +171,26 @@ public class Primeiro {
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(74, 234, 89, 23);
-		panel_1.add(btnCadastrar);
+		painelDeCadastro.add(btnCadastrar);
 		
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(267, 234, 89, 23);
-		panel_1.add(btnLimpar);
-		panel_1.setVisible(false);
+		painelDeCadastro.add(btnLimpar);
+		painelDeCadastro.setVisible(false);
 		
-		JPanel painelListar = new JPanel();
-		painelListar.setBounds(50, 128, 420, 290);
-		frame.getContentPane().add(painelListar);
-		painelListar.setLayout(null);
+		JPanel painelDeListagem = new JPanel();
+		painelDeListagem.setBounds(50, 128, 420, 290);
+		frame.getContentPane().add(painelDeListagem);
+		painelDeListagem.setLayout(null);
 		
 		JLabel lblListagemDeDados = new JLabel("Listagem de Dados");
 		lblListagemDeDados.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 20));
 		lblListagemDeDados.setBounds(124, 11, 161, 26);
-		painelListar.add(lblListagemDeDados);
+		painelDeListagem.add(lblListagemDeDados);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 50, 400, 164);
-		painelListar.add(scrollPane);
+		painelDeListagem.add(scrollPane);
 		
 //		table = new JTable();
 //		table.setModel(new DefaultTableModel(
@@ -211,45 +215,52 @@ public class Primeiro {
 		JButton botaoListaDados = new JButton("Listar Dados");
 		botaoListaDados.setFont(new Font("Calibri", Font.PLAIN, 15));
 		botaoListaDados.setBounds(156, 252, 107, 27);
-		painelListar.add(botaoListaDados);
+		painelDeListagem.add(botaoListaDados);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 520, 40);
-		frame.getContentPane().add(panel);
+		JPanel painelDaBarraSuperior = new JPanel();
+		painelDaBarraSuperior.setLayout(null);
+		painelDaBarraSuperior.setBackground(Color.WHITE);
+		painelDaBarraSuperior.setBounds(0, 0, 520, 40);
+		frame.getContentPane().add(painelDaBarraSuperior);
 		
-		JButton button = new JButton("");
-		button.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoFecharok.png")));
-		button.setOpaque(false);
-		button.setBorder(null);
-		button.setBounds(485, 0, 35, 40);
-		panel.add(button);
+		JButton botaoFechar = new JButton("");		
+		botaoFechar.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoFecharok.png")));
+		botaoFechar.setOpaque(false);
+		botaoFechar.setBorder(null);
+		botaoFechar.setBounds(485, 0, 35, 40);
+		painelDaBarraSuperior.add(botaoFechar);
 		
-		JButton button_1 = new JButton("");
-		button_1.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoMaximizar_35x40.jpg")));
-		button_1.setOpaque(false);
-		button_1.setBorder(null);
-		button_1.setBounds(450, 0, 35, 40);
-		panel.add(button_1);
+		JButton botaoMaximizar = new JButton("");
+		botaoMaximizar.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoMaximizar_35x40.jpg")));
+		botaoMaximizar.setOpaque(false);
+		botaoMaximizar.setBorder(null);
+		botaoMaximizar.setBounds(450, 0, 35, 40);
+		painelDaBarraSuperior.add(botaoMaximizar);
 		
-		JButton button_2 = new JButton("");
-		button_2.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoMinimizarok.png")));
-		button_2.setOpaque(false);
-		button_2.setBorder(null);
-		button_2.setBounds(415, 0, 35, 40);
-		panel.add(button_2);
+		JButton botaoMinimizar = new JButton("");
+		botaoMinimizar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		botaoMinimizar.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/botaoMinimizarok.png")));
+		botaoMinimizar.setOpaque(false);
+		botaoMinimizar.setBorder(null);
+		botaoMinimizar.setBounds(415, 0, 35, 40);
+		painelDaBarraSuperior.add(botaoMinimizar);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/iconeprincipal35x40.png")));
-		label.setBounds(0, 0, 35, 40);
-		panel.add(label);
+		JLabel labelIconeDaBarraSuperior = new JLabel("");
+		labelIconeDaBarraSuperior.setIcon(new ImageIcon(Primeiro.class.getResource("/resources/images/iconeprincipal35x40.png")));
+		labelIconeDaBarraSuperior.setBounds(0, 0, 35, 40);
+		painelDaBarraSuperior.add(labelIconeDaBarraSuperior);
 		
-		JLabel lblTelaInicial = new JLabel("Tela Inicial");
-		lblTelaInicial.setFont(new Font("Calibri", Font.PLAIN, 15));
-		lblTelaInicial.setBounds(45, 11, 201, 19);
-		panel.add(lblTelaInicial);
-		painelListar.setVisible(false);
+		JLabel labelTituloBarraSuperior = new JLabel("Tela Inicial");
+		labelTituloBarraSuperior.setFont(new Font("Calibri", Font.PLAIN, 15));
+		labelTituloBarraSuperior.setBounds(45, 11, 201, 19);
+		painelDaBarraSuperior.add(labelTituloBarraSuperior);
+		painelDeListagem.setVisible(false);
 		
 		
 		botaoListaDados.addActionListener(new ActionListener() {
@@ -316,7 +327,7 @@ public class Primeiro {
 					
 					if(campoNome.getText() == "" || campoNascimento.getText() == "" || sexo == "Selecione o Sexo"){
 						
-						JOptionPane.showMessageDialog(panel_1, "Preencha todos os campos!", "Um ou mais campos vazios", JOptionPane.ERROR_MESSAGE, null);
+						JOptionPane.showMessageDialog(painelDeCadastro, "Preencha todos os campos!", "Um ou mais campos vazios", JOptionPane.ERROR_MESSAGE, null);
 						
 					}else{
 					
@@ -333,7 +344,7 @@ public class Primeiro {
 						smtp.execute();	
 						smtp.close();//
 						connection.close();
-						int opcao = JOptionPane.showConfirmDialog(panel_1, "Funcionario Cadastrado com Sucesso!\n\nDeseja Cadastrar Outro usuário e limpar os campos escritos?\n");
+						int opcao = JOptionPane.showConfirmDialog(painelDeCadastro, "Funcionario Cadastrado com Sucesso!\n\nDeseja Cadastrar Outro usuário e limpar os campos escritos?\n");
 						System.out.println(opcao);
 						if(opcao == 0){
 							campoNome.setText("");
@@ -353,6 +364,22 @@ public class Primeiro {
 				}
 				}
 			});
+			
+			painelDaBarraSuperior.addMouseListener(new MouseAdapter() {
+				
+			      public void mousePressed(MouseEvent e) {
+			    	  
+			        point.x = e.getX();
+			        point.y = e.getY();
+			      }
+			    });
+			
+			painelDaBarraSuperior.addMouseMotionListener(new MouseMotionAdapter() {
+			      public void mouseDragged(MouseEvent e) {
+			        Point p = frame.getLocation();
+			        frame.setLocation(p.x + e.getX() - point.x, p.y + e.getY() - point.y);
+			      }
+			    });
 		
 			btnLimpar.addActionListener(new ActionListener() {
 				
@@ -364,10 +391,24 @@ public class Primeiro {
 				}
 			});
 			
-			mntmCadastrar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					panel_1.setVisible(true);
+			itemCadastrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {					
+					painelDeListagem.setVisible(false);
+					painelDeCadastro.setVisible(true);
+				}
+			});
+			
+			botaoFechar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
 					
+					System.exit(0);
+				}
+			});
+			
+			itemListar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					painelDeCadastro.setVisible(false);
+					painelDeListagem.setVisible(true);
 				}
 			});
 	

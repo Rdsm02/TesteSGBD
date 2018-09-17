@@ -293,7 +293,7 @@ public class Primeiro {
 //					DefaultTableModel tablemodel = new DefaultTableModel(new String[] {}, 0){};
 					
 					int qtdColunas = rs.getMetaData().getColumnCount();
-					DefaultTableModel tablemodel = new DefaultTableModel(new String [] {"ID","NOME","NASCIMENTO","SEXO"}, 0);
+					DefaultTableModel tablemodel = new DefaultTableModel(new String [] {"<html><b>ID</b></html>","NOME","NASCIMENTO","SEXO"}, 0);
 //					System.out.println(qtdColunas);
 //					System.out.println(tablemodel);
 					

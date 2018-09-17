@@ -42,15 +42,15 @@ public class ConexaoMySQL {
 	 
 	// Configurando a nossa conexão com um banco de dados//
 	 
-	            String serverName = "127.0.0.1:3306";    //caminho do servidor do BD
-	
+	            String serverName = "db4free.net:3306";    //caminho do servidor do BD
+	            //localhost:3306
 	            //jdbc:mysql://127.0.0.1:3306/?user=root
 //				String serverName = "127.0.0.1";
 	            ///Teste de SGBD/libs/mysql-connector-java-8.0.12.jar
 	            //jdbc:mysql://localhost:3306/?user=root
 	 
-	            String mydatabase = "cadastro";        //nome do seu banco de dados
-	            
+	            String mydatabase = "magnitudezero";        //nome do seu banco de dados
+	            //cadastro
 	            //root@127.0.0.1:3306
 //	            String mydatabase = "127.0.0.1";
 	 
@@ -58,10 +58,10 @@ public class ConexaoMySQL {
 //	            String url = "jdbc:mysql://" + serverName + "/" + mydatabase + "?autoReconnect=true&useSSL=false";
 	            
 	 
-	            String username = "root";        //nome de um usuário de seu BD      
-	 
-	            String password = "";      //sua senha de acesso
-	 
+	            String username = "rootpronto";        //nome de um usuário de seu BD      
+	            //root
+	            String password = "nadaadeclarar";      //sua senha de acesso
+	            //""
 	            connection = DriverManager.getConnection(url, username, password);
 	            
 	            
